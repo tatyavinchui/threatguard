@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ThreatGuard - Email Scanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f7fb}
+
+header{background:#111827;color:white;padding:14px 16px}
+nav{display:flex;flex-wrap:wrap;gap:10px}
+nav a{color:white;text-decoration:none;font-size:14px;padding:6px 12px;border-radius:5px;background:#1f2937}
+nav a:hover{background:#374151}
+
+.container{max-width:800px;margin:24px auto;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+
+h2{font-size:1.3rem;margin-bottom:16px}
+
+textarea,button{width:100%;padding:12px;margin-top:10px;font-size:15px;border-radius:6px;border:1px solid #d1d5db}
+textarea{resize:vertical;min-height:140px}
+button{background:#2563eb;color:white;border:none;cursor:pointer;font-weight:bold}
+button:hover{background:#1d4ed8}
+
+.back-link{display:inline-block;margin-top:12px;font-size:14px;color:#2563eb;text-decoration:none}
+
+.result{margin-top:20px;padding:15px;border-radius:8px;font-size:14px;word-break:break-all}
+.safe{background:#dcfce7;border-left:4px solid #16a34a}
+.phishing{background:#fee2e2;border-left:4px solid #dc2626}
+.suspicious{background:#fef9c3;border-left:4px solid #ca8a04}
+
+h4{margin-top:16px;font-size:14px}
+ul{padding-left:18px;margin-top:8px;font-size:13px;word-break:break-all}
+li{margin-bottom:4px}
+
+@media(max-width:600px){
+  .container{margin:12px;padding:16px;border-radius:8px}
+  h2{font-size:1.1rem}
+  textarea,button{padding:11px;font-size:14px}
+  nav a{font-size:13px;padding:5px 10px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="/">🔗 URL Scan</a>
+    <a href="/file-scan">📁 File Scan</a>
+    <a href="/email-scan">📧 Email Scan</a>
+  </nav>
+</header>
+<div class="container">
+<h2>📧 Email Phishing Scanner</h2>
+<form method="post">
+<textarea name="email_text" placeholder="Paste email content here..." required></textarea>
+<button type="submit">Scan Email</button>
+</form>
+<a class="back-link" href="/">← Back to URL Scan</a>
+{% if result %}
+<div class="result
+{% if 'PHISHING' in result %}phishing
+{% elif 'SUSPICIOUS' in result %}suspicious
+{% else %}safe{% endif %}">
+<b>{{ result }}</b><br>
+Risk Score: {{ score }}
+</div>
+{% endif %}
+{% if links %}
+<h4>Detected Links:</h4>
+<ul>
+{% for l in links %}
+<li>{{ l }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+</div>
+</body>
+</html>
