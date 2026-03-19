@@ -1,0 +1,9 @@
+Flask
+pandas
+PyPDF2
+requests
+python-dotenv
+gunicorn
+scikit-learn
+joblib
+PyPDF2
